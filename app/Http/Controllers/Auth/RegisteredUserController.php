@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\FamilyGroup;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -33,15 +34,53 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'group_id' => ['required', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
+        // ラジオボタンのオンオフの条件判定のため
+        $family_check = $request->family_check;
+        
+        // if (新規の家族グループを作成する) else (既存の家族グループに参加する)
+        if($family_check === "2"){
+            
+            // 新規の家族グループを作成する)場合にのみ、"family_groups"テーブルの"name"との重複排除
+            $request->validate([
+                'group_id' => ['required', 'string', 'max:255', 'unique:family_groups,name'],
+            ]);
+            
+            // フォーム(Family_Group_ID)に入力した値を"family_groups"テーブルの"name"に設定
+            $familygroup = FamilyGroup::create([
+                'name' => $request->group_id,
+            ]);
+            
+            // "family_groups"テーブルに新規追加したレコードのidを取得
+            $last_record = \DB::table('family_groups')->latest('id')->first();
+            
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                // "family_groups"テーブルに新規追加したレコードの"id"を"users"テーブルの"group_id"に設定
+                'group_id' => $last_record->id,
+                'password' => Hash::make($request->password),
+            ]);
+            
+        }else {
+            
+            // フォーム(Family_Group_ID)に入力した値で、"family_groups"テーブルの"name"を検索し、
+            // それに紐づく"id"を取得
+            $select_record = FamilyGroup::where('name', $request->group_id)->first();
+            
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                // フォーム(Family_Group_ID)に入力した値で、"family_groups"テーブルの"name"を検索し、
+                // それに紐づく"id"を"users"テーブルの"group_id"に設定
+                'group_id' => $select_record->id,
+                'password' => Hash::make($request->password),
+            ]);
+        }
+        
         event(new Registered($user));
 
         Auth::login($user);

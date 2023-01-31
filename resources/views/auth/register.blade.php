@@ -24,12 +24,21 @@
                 <input type="email" name="email" class="input input-bordered w-full">
             </div>
 
-            <div class="form-control my-4">
+            <div class="form-group">
                 <label for="group_id" class="label">
                     <span class="label-text">Family_Group_ID</span>
                 </label>
-                <input type="text" name="group_id" class="input input-bordered w-full">
-                ※家族で取り決めたIDを入力してください
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="family_check" class="form-check-input" id="family_check01" value="1" checked>
+                    <label for="family_check01" class="form-check-label">既存の家族グループに参加する</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" name="family_check" class="form-check-input" id="family_check02" value="2" >
+                    <label for="family_check02" class="form-check-label">新規の家族グループを作成する</label>
+                </div>
+                <br>
+                    <input type="text" name="group_id" class="input input-bordered w-full">
+                </label>
             </div>
 
             <div class="form-control my-4">

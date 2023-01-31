@@ -1,9 +1,10 @@
 @if (Auth::check())
-    {{-- ユーザ一覧ページへのリンク --}}
-    <li><a class="link link-hover text-black" href="#">Users</a></li>
-    {{-- ユーザ詳細ページへのリンク --}}
-    <li><a class="link link-hover text-black" href="#">{{ Auth::user()->name }}&#39;s profile</a></li>
-    <li class="divider lg:hidden"></li>
+    {{-- マイページへのリンク --}}
+    <li><a class="link link-hover text-black" href="{{ route('users.show', Auth::user()->id) }}">マイページ</a></li>
+    {{-- 買うモノ登録ページへのリンク --}}
+    <li><a class="link link-hover text-black" href="#">買うモノ登録ページ</a></li>
+    {{-- おつかい依頼ページへのリンク --}}
+    <li><a class="link link-hover text-black" href="#">おつかい依頼ページ</a></li>
     {{-- ログアウトへのリンク --}}
     <li><a class="link link-hover text-black" href="#" onclick="event.preventDefault();this.closest('form').submit();">Logout</a></li>
 @else
