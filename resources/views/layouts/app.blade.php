@@ -7,7 +7,7 @@
         @vite('resources/css/app.css')
     </head>
 
-    <body>
+    <body class="bg-neutral-400">
 
         {{-- ナビゲーションバー --}}
         @include('commons.navbar')
