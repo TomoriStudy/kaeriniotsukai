@@ -54,14 +54,11 @@ class RegisteredUserController extends Controller
                 'name' => $request->group_id,
             ]);
             
-            // "family_groups"テーブルに新規追加したレコードのidを取得
-            $last_record = \DB::table('family_groups')->latest('id')->first();
-            
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 // "family_groups"テーブルに新規追加したレコードの"id"を"users"テーブルの"group_id"に設定
-                'group_id' => $last_record->id,
+                'group_id' => $familygroup->id,
                 'password' => Hash::make($request->password),
             ]);
             

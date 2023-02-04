@@ -2,8 +2,10 @@
 
 @section('content')
 
-    <div class="prose mx-auto text-center">
-        <h2>ログイン</h2>
+    <div class="flex items-center justify-center mt-8">
+        <div class="text-xl font-bold">
+            ログイン
+        </div>
     </div>
 
     <div class="flex justify-center">
@@ -12,22 +14,22 @@
 
             <div class="form-control my-4">
                 <label for="email" class="label">
-                    <span class="label-text">Email</span>
+                    <span class="label-text">メールアドレス：</span>
                 </label>
                 <input type="email" name="email" class="input input-bordered w-full">
             </div>
 
             <div class="form-control my-4">
                 <label for="password" class="label">
-                    <span class="label-text">Password</span>
+                    <span class="label-text">パスワード：</span>
                 </label>
                 <input type="password" name="password" class="input input-bordered w-full">
             </div>
 
-            <button type="submit" class="btn btn-lg normal-case bg-stone-500 btn-block">ログイン</button>
+            <button type="submit" class="btn btn-outline normal-case btn-block btn-red mt-4">ログイン</button>
         </font>
 
         {{-- ユーザ登録ページへのリンク --}}
-        <p class="mt-2">New user? <a class="link link-hover text-warning" href="{{ route('register') }}">Sign up now!</a></p>
+        <p class="mt-2">新しいユーザですか？ <a class="link link-hover link-user" href="{{ route('register') }}">会員登録ページへ</a></p>
     </div>
 @endsection

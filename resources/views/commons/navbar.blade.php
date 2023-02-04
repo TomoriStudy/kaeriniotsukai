@@ -1,8 +1,8 @@
 <header class="mb-4">
-    <nav class="navbar bg-white text-neutral-content">
+    <nav class="navbar text-neutral-content" style="background-color: rgb(173, 62, 81)">
         {{-- トップページへのリンク --}}
         <div class="flex-1">
-            <h1><a class="btn btn-ghost normal-case text-xl text-black" href="/">帰りに〇〇買ってきて</a></h1>
+            <h1><a class="btn btn-ghost normal-case text-xl text-white" style="font-family: Yu Gothic" href="/">帰りに〇〇買ってきて！</a></h1>
         </div>
 
         <div class="flex-none">

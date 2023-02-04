@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController; // 追記
+use App\Http\Controllers\ProductsController; // 追記
+use App\Http\Controllers\TasksController; // 追記
+use App\Http\Controllers\RequestedTasksController; // 追記
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +22,15 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::group(['middleware' => ['auth']], function () {                                            // 追記
+//     Route::group(['prefix' => 'users/{id}'], function () {                                          // 追記
+//     // Route::get('/dashboard', [UsersController::class, 'show'])->middleware(['auth'])->name('dashboard');
+//     // Route::resource('request_tasks', RequestTasksController::class, ['only' => ['index', 'create', 'store', 'destroy']]);
+//         Route::resource('requested_tasks', RequestedTasksController::class, ['only' => ['index', 'create', 'store', 'destroy']]);
+//     });
+// }); 
+
+Route::get('/dashboard', [UsersController::class, 'show'])->middleware(['auth'])->name('dashboard');
 
 Route::group(['middleware' => ['auth']], function () {                                    // 追記
     Route::resource('users', UsersController::class, ['only' => ['show']]);               // 追記
@@ -33,3 +42,8 @@ Route::group(['middleware' => ['auth']], function () {                          
 // });
 
 require __DIR__.'/auth.php';
+
+Route::middleware('auth')->group(function () {
+    Route::resource('products', ProductsController::class, ['only' => ['index', 'store']]);
+    Route::resource('tasks', TasksController::class, ['only' => ['index', 'store', 'edit', 'update', 'destroy']]);
+});

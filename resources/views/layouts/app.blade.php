@@ -5,9 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @vite('resources/css/app.css')
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     </head>
 
-    <body class="bg-neutral-400">
+    <body class="bg-gray-200">
 
         {{-- ナビゲーションバー --}}
         @include('commons.navbar')

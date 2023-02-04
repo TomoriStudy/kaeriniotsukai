@@ -1,0 +1,25 @@
+.btn-red {
+  color: #CC3D55;
+  border-color: #CC3D55;
+}
+
+.btn-red:hover {
+  background-color: #CC3D55;
+  color: #fff;
+  border-color: #CC3D55;
+}
+
+.link-user {
+  color: #CC3D55;
+}
+
+.task-content {
+  color: #CC3D55;
+   position: relative;
+   top: 3.7px;
+   left: -8px;
+}
+
+.btn-toppage {
+  transform: scale(1.2);
+}
