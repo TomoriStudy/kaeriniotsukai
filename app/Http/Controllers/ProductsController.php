@@ -66,7 +66,7 @@ class ProductsController extends Controller
 
             Product::create([
                 'group_id' => $user->group_id,
-                'product_name' => $request->product_name,
+                'name' => $request->product_name,
             ]);
         }
 
