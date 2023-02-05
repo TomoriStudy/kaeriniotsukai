@@ -153,6 +153,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => '『商品名』',
+        'product_id' => '『商品名』',
+        'to_user_id' => '『誰に』',
+        'quantity' => '『個数』',
+    ],
 
 ];
