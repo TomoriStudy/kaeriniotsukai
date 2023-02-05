@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\User;
 use App\Models\Product;    // 追加
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ProductsController extends Controller
 {
@@ -43,19 +45,28 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         // "products"テーブルへレコード追加の際、商品名の重複排除
-        $request->validate([
-            'products_name' => 'required|max:255|unique:products,name',
-        ]);
+        // $request->validate([
+        //     'name' => 'required|max:255|unique:family_groups,name'
+        // ]);
+        
         
         // 認証済みの場合
         if (\Auth::check()) {
+            
             // 認証済みユーザを取得
             $user = \Auth::user();
-            // 認証済みユーザの"group_id"とフォームから追加した
-            // 商品"name"で"products"テーブルにレコード追加
+            
+            $request->validate([
+                'product_name' => ['required', Rule::unique('products', 'name')->where(function ($query) use ($request) {
+                    $query->where('group_id', \Auth::user()->group_id);
+                    // $sql = $query->toSql();
+                    // dd($sql);
+                })],
+            ]);
+
             Product::create([
                 'group_id' => $user->group_id,
-                'products_name' => $request->name,
+                'product_name' => $request->product_name,
             ]);
         }
 

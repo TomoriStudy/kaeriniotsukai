@@ -31,7 +31,7 @@
                                 <p class="mb-0" style="display: inline-block;">個</p>
                                 <br>
                                 <p class="mb-0 ml-1" style="display: inline-block;">備考：</p>
-                                <p class="mb-0 truncate ml-2 task-content" style="display: inline-block; max-width: 200px">{!! nl2br(e($request_task->note)) !!}</p>
+                                <p class="mb-0 truncate ml-2 task-content" style="display: inline-block; max-width: 250px">{!! nl2br(e($request_task->note)) !!}</p>
                             </div>
                         </div>
                         {{-- 二つのボタンひとかたまりにして横並びで表示 --}}

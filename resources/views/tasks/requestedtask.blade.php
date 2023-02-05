@@ -24,7 +24,7 @@
                         <p class="mb-0" style="display: inline-block;">個</p>
                         <br>
                         <p class="mb-0 ml-1" style="display: inline-block;">備考：</p>
-                        <p class="mb-0 truncate ml-2 task-content" style="display: inline-block; max-width: 150px">{!! nl2br(e($requested_task->note)) !!}</p>
+                        <p class="mb-0 truncate ml-2 task-content" style="display: inline-block; max-width: 400px">{!! nl2br(e($requested_task->note)) !!}</p>
                     </div>
                 </li>
             @endforeach
