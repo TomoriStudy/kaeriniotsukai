@@ -21,16 +21,17 @@
                                 {{-- IDは表示させないこととする --}}
                                 <!--<p class="mb-0 truncate text-rose-500 ml-1" style="display: inline-block;">{!! nl2br(e($request_task->id)) !!}.</p>-->
                                 <!--<p class="mb-0 truncate" style="display: inline-block; max-width: 100px">{!! nl2br(e($request_task->name)) !!}</p>-->
-                                <p class="mb-0 ml-1" style="display: inline-block;">内容：</p>
-                                <p class="mb-0 truncate ml-2 task-content" style="display: inline-block; max-width: 100px">{!! nl2br(e(App\Models\User::find($request_task->to_user_id)->name)) !!}</p>
+                                <p class="mb-0 truncate ml-1 task-content" style="display: inline-block;">{!! nl2br(e($request_task->created_at)) !!}</p>
                                 <p class="mb-0" style="display: inline-block;">に</p>
-                                <p class="mb-0 truncate ml-4 task-content" style="display: inline-block; max-width: 100px">{!! nl2br(e(App\Models\Product::find($request_task->product_id)->name)) !!}</p>
+                                <p class="mb-0 truncate task-content" style="display: inline-block; max-width: 100px">{!! nl2br(e(App\Models\User::find($request_task->to_user_id)->name)) !!}</p>
+                                <p class="mb-0" style="display: inline-block;">に</p>
+                                <p class="mb-0 truncate task-content" style="display: inline-block; max-width: 100px">{!! nl2br(e(App\Models\Product::find($request_task->product_id)->name)) !!}</p>
                                 <p class="mb-0" style="display: inline-block;">を</p>
-                                <p class="mb-0 truncate ml-4 task-content" style="display: inline-block; max-width: 100px">{!! nl2br(e($request_task->quantity)) !!}</p>
+                                <p class="mb-0 truncate task-content" style="display: inline-block; max-width: 100px">{!! nl2br(e($request_task->quantity)) !!}</p>
                                 <p class="mb-0" style="display: inline-block;">個</p>
                                 <br>
                                 <p class="mb-0 ml-1" style="display: inline-block;">備考：</p>
-                                <p class="mb-0 truncate ml-2 task-content" style="display: inline-block; max-width: 100px">{!! nl2br(e($request_task->note)) !!}</p>
+                                <p class="mb-0 truncate ml-2 task-content" style="display: inline-block; max-width: 200px">{!! nl2br(e($request_task->note)) !!}</p>
                             </div>
                         </div>
                         {{-- 二つのボタンひとかたまりにして横並びで表示 --}}
