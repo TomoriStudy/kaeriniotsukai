@@ -11,7 +11,7 @@
             @csrf
         
             <div class="form-control mt-4">
-                <input type="text" name="name" class="input input-bordered w-full text-center" value="{{ old('name', '-- 登録する商品名を入力してください --') }}" style="color: #808080;">
+                <input type="text" name="products_name" class="input input-bordered w-full text-center" value="{{ old('products_name', '-- 登録する商品名を入力してください --') }}" style="color: #808080;">
             </div>
         
             <button type="submit" class="btn btn-outline normal-case btn-block btn-red mt-4">登録する！</button>

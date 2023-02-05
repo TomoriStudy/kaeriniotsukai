@@ -44,7 +44,7 @@ class ProductsController extends Controller
     {
         // "products"テーブルへレコード追加の際、商品名の重複排除
         $request->validate([
-            'name' => 'required|max:255|unique:products,name',
+            'products_name' => 'required|max:255|unique:products,name',
         ]);
         
         // 認証済みの場合
@@ -55,7 +55,7 @@ class ProductsController extends Controller
             // 商品"name"で"products"テーブルにレコード追加
             Product::create([
                 'group_id' => $user->group_id,
-                'name' => $request->name,
+                'products_name' => $request->name,
             ]);
         }
 

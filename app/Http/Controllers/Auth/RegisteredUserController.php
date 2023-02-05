@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -68,14 +69,28 @@ class RegisteredUserController extends Controller
             // それに紐づく"id"を取得
             $select_record = FamilyGroup::where('name', $request->group_id)->first();
             
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                // フォーム(Family_Group_ID)に入力した値で、"family_groups"テーブルの"name"を検索し、
-                // それに紐づく"id"を"users"テーブルの"group_id"に設定
-                'group_id' => $select_record->id,
-                'password' => Hash::make($request->password),
+            // if (既存のグループIDがレコードに存在するとき)
+            if(isset($select_record)){
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    // フォーム(Family_Group_ID)に入力した値で、"family_groups"テーブルの"name"を検索し、
+                    // それに紐づく"id"を"users"テーブルの"group_id"に設定
+                    'group_id' => $select_record->id,
+                    'password' => Hash::make($request->password),
+                ]);
+            }
+            
+            // 既存のグループIDがレコードに存在しないときバリデーションエラー
+            $request->validate([
+                'group_id' => [
+                    'required',
+                    Rule::exists('family_groups', 'name')->where(function ($query) use ($request) {
+                        $query->where('name', $request->group_id);
+                    }),
+                ],
             ]);
+
         }
         
         event(new Registered($user));

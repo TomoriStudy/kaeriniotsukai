@@ -154,7 +154,11 @@ return [
     */
 
     'attributes' => [
-        'name' => '『商品名』',
+        'name' => '『お名前』',
+        'email' => '『メールアドレス』',
+        'password' => '『パスワード』',
+        'group_id' => '『家族グループID』',
+        'products_name' => '『商品名』',
         'product_id' => '『商品名』',
         'to_user_id' => '『誰に』',
         'quantity' => '『個数』',
