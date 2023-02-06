@@ -4,7 +4,6 @@
             @foreach ($requested_tasks as $requested_task)
                 <li class="flex items-start gap-x-2 mb-4 text-sm">
                     {{-- タスクを依頼したユーザのメールアドレスをもとにGravatarを取得して表示 --}}
-                    {{-- なのだが、現在はマイページを開いたユーザのメールアドレスになっていると思う --}}
                     <div class="avatar">
                         <div class="w-12 rounded">
                             <img src="{{ Gravatar::get($user->email) }}" alt="" />

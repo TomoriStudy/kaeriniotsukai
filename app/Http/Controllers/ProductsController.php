@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User;
-use App\Models\Product;    // 追加
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -56,14 +56,18 @@ class ProductsController extends Controller
             // 認証済みユーザを取得
             $user = \Auth::user();
             
+            // 商品登録の際に、DBに既に登録がある場合バリデーションエラー
+            // ※同じグループIDを持つ場合のみ
             $request->validate([
                 'product_name' => ['required', Rule::unique('products', 'name')->where(function ($query) use ($request) {
                     $query->where('group_id', \Auth::user()->group_id);
+                    // SQL文の発行とその確認
                     // $sql = $query->toSql();
                     // dd($sql);
                 })],
             ]);
 
+            // DBにレコード作成
             Product::create([
                 'group_id' => $user->group_id,
                 'name' => $request->product_name,

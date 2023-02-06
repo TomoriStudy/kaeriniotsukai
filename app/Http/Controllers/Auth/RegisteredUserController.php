@@ -32,6 +32,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // バリデーション
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
@@ -45,12 +46,12 @@ class RegisteredUserController extends Controller
         // if (新規の家族グループを作成する) else (既存の家族グループに参加する)
         if($family_check === "2"){
             
-            // 新規の家族グループを作成する)場合にのみ、"family_groups"テーブルの"name"との重複排除
+            // 新規の家族グループを作成する場合にのみ、"family_groups"テーブルの"name"との重複排除
             $request->validate([
                 'group_id' => ['required', 'string', 'max:255', 'unique:family_groups,name'],
             ]);
             
-            // フォーム(Family_Group_ID)に入力した値を"family_groups"テーブルの"name"に設定
+            // フォーム(家族グループID)に入力した値を"family_groups"テーブルの"name"に設定
             $familygroup = FamilyGroup::create([
                 'name' => $request->group_id,
             ]);
@@ -65,7 +66,7 @@ class RegisteredUserController extends Controller
             
         }else {
             
-            // フォーム(Family_Group_ID)に入力した値で、"family_groups"テーブルの"name"を検索し、
+            // フォーム(家族グループID)に入力した値で、"family_groups"テーブルの"name"を検索し、
             // それに紐づく"id"を取得
             $select_record = FamilyGroup::where('name', $request->group_id)->first();
             
@@ -74,7 +75,7 @@ class RegisteredUserController extends Controller
                 $user = User::create([
                     'name' => $request->name,
                     'email' => $request->email,
-                    // フォーム(Family_Group_ID)に入力した値で、"family_groups"テーブルの"name"を検索し、
+                    // フォーム(家族グループID)に入力した値で、"family_groups"テーブルの"name"を検索し、
                     // それに紐づく"id"を"users"テーブルの"group_id"に設定
                     'group_id' => $select_record->id,
                     'password' => Hash::make($request->password),

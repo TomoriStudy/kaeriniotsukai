@@ -16,9 +16,9 @@ class UsersController extends Controller
         if (\Auth::check()) {
             // 認証済みユーザを取得
             $user = \Auth::user();
-            // 認証済みユーザが依頼したタスクだけを取得(1ページ5件)
+            // 認証済みユーザが依頼したタスクだけを取得(1ページ4件)
             $request_tasks = Task::where('from_user_id', $user->id)->orderBy('id', 'desc')->paginate(4);
-            // 認証済みユーザが依頼されたタスクだけを取得(1ページ5件)
+            // 認証済みユーザが依頼されたタスクだけを取得(1ページ8件)
             $requested_tasks = Task::where('to_user_id', $user->id)->orderBy('id', 'desc')->paginate(8);
         }
 

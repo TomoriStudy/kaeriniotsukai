@@ -2,12 +2,8 @@
     @if (isset($request_tasks))
         <ul class="list-none">
             @foreach ($request_tasks as $request_task)
-                {{-- アイコンと依頼内容のひとかたまり及びボタン系を横並びで表示している --}}
-                {{-- でもやりたいことは3分割したエリアの左から二つ分エリアにアイコンと依頼内容のひとかたまり --}}
-                {{-- 右から一つ分エリアにボタン系 --}}
                 <li class="flex items-start gap-x-2 text-sm">
                     {{-- タスクを依頼したユーザのメールアドレスをもとにGravatarを取得して表示 --}}
-                    {{-- なのだが、現在はマイページを開いたユーザのメールアドレスになっていると思う --}}
                     {{-- アイコンと依頼内容のひとかたまり・二つの要素を横並びで表示 --}}
                     <div class="flex flex-row-reverse">
                         <div class="flex items-start gap-x-2 ml-2">

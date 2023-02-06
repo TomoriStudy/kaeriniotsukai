@@ -19,15 +19,17 @@ class TasksController extends Controller
         if (\Auth::check()) {
             // 認証済みユーザを取得
             $user = \Auth::user();
-            // 認証済みユーザが依頼したタスクだけを取得(1ページ5件) →　表示してない
+            // 認証済みユーザが依頼したタスクだけを取得(1ページ5件)
             $tasks = Task::where('from_user_id', $user->id)->orderBy('id', 'desc')->paginate(5);
             
             // データベースから、「商品」プルダウンに表示するレコードコレクションを取得
             // ただし、自分と同じ"group_id"のレコードだけを取得
+            // プルダウン用の変数
             $products_options = Product::where('group_id', $user->group_id)->get();
             
             // データベースから、「依頼されたユーザ」プルダウンに表示するレコードコレクションを取得
             // ただし、自分と同じ"group_id"のレコードだけを取得
+            // プルダウン用の変数
             $users_options = User::where('group_id', $user->group_id)->get();
         }
         
@@ -50,7 +52,8 @@ class TasksController extends Controller
             'note' => 'max:255',
         ]);
         
-        if (\Auth::check()) { // 認証済みの場合
+        // 認証済みの場合
+        if (\Auth::check()) {
             // 認証済みユーザを取得
             $user = \Auth::user();
             
@@ -78,10 +81,12 @@ class TasksController extends Controller
             
             // データベースから、「商品」プルダウンに表示するレコードコレクションを取得
             // ただし、自分と同じ"group_id"のレコードだけを取得
+            // プルダウン用の変数
             $products_options = Product::where('group_id', $user->group_id)->get();
             
             // データベースから、「依頼されたユーザ」プルダウンに表示するレコードコレクションを取得
             // ただし、自分と同じ"group_id"のレコードだけを取得
+            // プルダウン用の変数
             $users_options = User::where('group_id', $user->group_id)->get();
         }
         
@@ -113,10 +118,10 @@ class TasksController extends Controller
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
         
-        if (\Auth::check()) { // 認証済みの場合
+        // 認証済みの場合
+        if (\Auth::check()) {
             // 認証済みユーザを取得
             $user = \Auth::user();
-            // dd($request_task);
             // メッセージを更新
             if (\Auth::id() === $task->from_user_id) {
                 $task->to_user_id = $request_task->to_user_id;
@@ -139,7 +144,6 @@ class TasksController extends Controller
         // idの値で投稿を検索して取得
         $request_task = \App\Models\Task::findOrFail($id);
         
-        // dd($task);
         // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は投稿を削除
         if (\Auth::id() === $request_task->from_user_id) {
             $request_task->delete();
